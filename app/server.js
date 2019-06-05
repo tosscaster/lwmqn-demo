@@ -1,12 +1,16 @@
 var http = require('http'); 
 var chalk = require('chalk');
 var MqttShepherd = require('mqtt-shepherd');
-var _ = require('busyman');
+var _ = require('lodash');
 
 var model = require('./model/model');
 var ioServer = require('./helpers/ioServer');
 var server = http.createServer();
-var qserver = new MqttShepherd();
+var qserver = new MqttShepherd({
+  broker: {
+    port: 1883
+  }
+});
 
 server.listen(3030);
 ioServer.start(server);

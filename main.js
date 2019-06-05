@@ -6,6 +6,7 @@ var shepherdApp = require('./app/server'),
     port = 3000,        // isDeveloping ? 3000 : process.env.PORT
     app = express();
 
+/*
 if (isDeveloping) {
     var config = require('./webpack.config'),
         compiler = require('webpack')(config),
@@ -29,11 +30,12 @@ if (isDeveloping) {
         res.end();
     });
 } else {
+*/
     app.use(express.static(__dirname + '/build'));
     app.get('*', function response(req, res) {
         res.sendFile(path.join(__dirname, 'build/index.html'));
     });
-}
+//}
 
 app.listen(port, '0.0.0.0', function onStart(err) {
   if (err) {
