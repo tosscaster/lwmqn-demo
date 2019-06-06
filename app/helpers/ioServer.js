@@ -2,8 +2,8 @@
 'use strict';
 
 var _ = require('lodash'),
-    express = require('express'),
-    http = require('http'),
+//    express = require('express'),
+//    http = require('http'),
     Server = require('socket.io');
 
 function IoServer () {

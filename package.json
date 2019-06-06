@@ -12,7 +12,7 @@
     "lodash": "^4.17.11",
     "mqtt-node": "^0.8.1",
     "mqtt-shepherd": "tosscaster/mqtt-shepherd",
-    "smartobject": "^1.4.4",
+    "smartobject": "^1.5.0",
     "socket.io": "^2.2.0"
   }
 }

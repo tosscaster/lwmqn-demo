@@ -9,7 +9,8 @@ var server = http.createServer();
 var qserver = new MqttShepherd({
   broker: {
     port: 1883
-  }
+  },
+  reqTimeout: 1000 * 100
 });
 
 server.listen(3030);
