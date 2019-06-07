@@ -40,10 +40,10 @@ var isD04Observed = false;
 
 var startDemoApp = function () {
     isDemoRunning = true;
-    var qnode1 = model.qnode1,
-        qnode2 = model.qnode2,
-        qnode3 = model.qnode3,
-        qnode4 = model.qnode4;
+    var qnode1 = model.qnode1; //,
+        //qnode2 = model.qnode2,
+        //qnode3 = model.qnode3,
+        //qnode4 = model.qnode4;
 
     setTimeout(function () {
         toastInd('Client device d01 will join: Temp. + Humidity + Illum. Sensors');
@@ -53,6 +53,7 @@ var startDemoApp = function () {
         qnode1.connect('mqtt://localhost', function () {});
     }, 3000);
 
+    /*
     setTimeout(function () {
         toastInd('Client device d02 will join: On/Off Switch');
     }, 4000);
@@ -76,11 +77,13 @@ var startDemoApp = function () {
     setTimeout(function () {
         qnode4.connect('mqtt://localhost', function () {});
     }, 12000);
+    */
 
     setTimeout(function () {
         toastInd('Try clicking on the Buzzer and Light Bulb');
     }, 13000);
 
+    /*
     setTimeout(function () {
         toastInd('Someone light the Bulb up by the On/Off Switch');
         qnode2.so.write('onOffSwitch', 0, 'dInState', 1, function (err, val) {});
@@ -89,12 +92,14 @@ var startDemoApp = function () {
             qnode2.so.write('onOffSwitch', 0, 'dInState', 0, function (err, val) {});
         }, 5000);
     }, 22000);
+    */
 
     setTimeout(function () {
         toastInd('Auto light up when illumination < 50 lux');
         qnode1.so.write('illuminance', 1, 'sensorValue', 40, function (err, val) {});
     }, 30000);
 
+    /*
     setTimeout(function () {
         toastInd('Auto light up when PIR sensed someone walking around');
         qnode4.so.write('presence', 0, 'dInState', 1, function (err, val) {});
@@ -113,6 +118,7 @@ var startDemoApp = function () {
             qnode4.so.write('dOut', 0, 'dOutState', 0, function (err, val) {});
         }, 6000);
     }, 45000);
+    */
 
     setTimeout(function () {
         toastInd('Demo Ended!');
@@ -181,7 +187,8 @@ var app = function () {
             startDemoApp();
 
         setImmediate(function () {
-            qserver.permitJoin(args.time);
+            //qserver.permitJoin(args.time);
+            qserver.permitJoin(100);
             cb(null, null);
         });
     });
@@ -220,6 +227,7 @@ var app = function () {
     /*** ready            ***/
     qserver.on('ready', function () {
         readyInd();
+        console.log(qserver.list());
     });
 
     /*** error            ***/
@@ -230,6 +238,8 @@ var app = function () {
     /*** permitJoining    ***/
     qserver.on('permitJoining', function (joinTimeLeft) {
         permitJoiningInd(joinTimeLeft);
+        //console.log(qserver.info())
+        //console.log(qserver.list())
     });
 
     qserver.on('ind', function (msg) {
@@ -312,6 +322,33 @@ var app = function () {
             // data = { type, auxId, value }
         }
     });
+
+    qserver.on("message", function(topic, message, packet) {
+      //console.log("qserver:message");
+      //console.log('<<<<------------------>>>>>');
+      //console.log(topic);
+      //console.log(message);
+    });
+
+    qserver.on("priphConnected", function(client) {
+      //console.log("qserver:priphConnected");
+    });
+
+    qserver.on("priphDisconnected", function(client) {
+      //console.log("qserver:priphDisconnected");
+    });
+
+    qserver.on("priphPublished", function(packet, client) {
+      //console.log("qserver:priphPublished");
+    });
+
+    qserver.on("priphSubscribed", function(subscriptions, client) {
+      //console.log("qserver:priphSubscribed");
+    });
+
+    qserver.on("priphUnsubscribed", function(unsubscriptions, client) {
+      //console.log("qserver:priphUnsubscribed");
+    });
 };
 /**********************************/
 /* welcome function               */
@@ -375,7 +412,7 @@ function readyInd () {
 
 function permitJoiningInd (timeLeft) {
     ioServer.sendInd('permitJoining', { timeLeft: timeLeft });
-    console.log(chalk.green('[ permitJoining ] ') + timeLeft + ' sec');
+    // console.log(chalk.green('[ permitJoining ] ') + timeLeft + ' sec');
 }
 
 function errorInd (msg) {

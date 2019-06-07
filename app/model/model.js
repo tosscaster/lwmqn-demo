@@ -28,12 +28,13 @@ so4.init('dOut', 0, { dOutState: 0, appType: 'flame' });
 
 //------------------------------------------------------------
 qnode1 = new MqttNode('d01', so1);
-qnode2 = new MqttNode('d02', so2);
-qnode3 = new MqttNode('d03', so3);
-qnode4 = new MqttNode('d04', so4);
+//qnode2 = new MqttNode('d02', so2);
+//qnode3 = new MqttNode('d03', so3);
+//qnode4 = new MqttNode('d04', so4);
 
 qnode1.on('ready', function () {
     var so = qnode1.getSmartObject();
+    /*
     setInterval(function () {
         so.write('temperature', 0, 'sensorValue', randomFloat(18, 26), function (err, val) {});
     }, 2800);
@@ -41,7 +42,7 @@ qnode1.on('ready', function () {
     setInterval(function () {
         so.write('humidity', 0, 'sensorValue', randomFloat(40, 70), function (err, val) {});
     }, 5000);
-
+    */
     setInterval(function () {
         so.write('illuminance', 1, 'sensorValue', randomInt(50, 1000), function (err, val) {});
     }, 8000);
@@ -51,6 +52,7 @@ qnode1.on('error', function (err) {
     console.log(err);
 });
 
+/*
 qnode2.on('ready', function () {
     // switch, nothing auto change
 });
@@ -62,6 +64,7 @@ qnode3.on('ready', function () {
 qnode4.on('ready', function () {
     // pir and flame, nothing auto change
 });
+*/
 
 function randomFloat(min, max) {
     var num = (Math.random() * (max - min) + min) * 10;
@@ -76,7 +79,7 @@ function randomInt(min, max) {
 
 exports = module.exports = {
     qnode1: qnode1,
-    qnode2: qnode2,
-    qnode3: qnode3,
-    qnode4: qnode4
+    //qnode2: qnode2,
+    //qnode3: qnode3,
+    //qnode4: qnode4
 };
