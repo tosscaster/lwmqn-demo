@@ -1,7 +1,7 @@
 /* jshint node: true */
 'use strict';
 
-var _ = require('lodash'),
+var _ = require('busyman'),
 //    express = require('express'),
 //    http = require('http'),
     Server = require('socket.io');
